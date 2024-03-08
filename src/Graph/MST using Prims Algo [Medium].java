@@ -1,23 +1,10 @@
-import sorting.MergeSort;
-import sorting.QuickSort;
-import structures.*;
+package Graph;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import structures.Pair;
+import structures.Graph;
 
-public class Main {
+class MST {
     public static void main(String[] args) {
-        int[] arr1 = new int[] {7,3,1,5,7,8,1,9,4};
-        int[] arr2 = new int[] {7,3,1,5,7,8,1,9,4};
-
-        MergeSort.mergeSort(arr1, 0, arr1.length-1);
-        Arrays.stream(arr1).forEach(e -> System.out.print(e+" "));
-        System.out.println();
-        QuickSort.quickSort(arr2, 0, arr2.length-1);
-        Arrays.stream(arr2).forEach(e -> System.out.print(e+" "));
-    }
-
-    public void runGraph() {
         Graph g = new Graph(4);
 
         // Build Adjacency List
@@ -51,10 +38,12 @@ public class Main {
             int u = i;
 
             // Find minimum of key which is not a part of mst
+            // We can IMPROVE this step by using priority queue to get min key in O(1)
+            // 
             for(int j=0; j<g.cap; j++){
                 if(!mst[j] && key[j] < minWeight){
-                    minWeight = key[j];
-                    u = j;
+                  minWeight = key[j];
+                  u = j;
                 }
             }
 
@@ -62,6 +51,7 @@ public class Main {
             mst[u] = true;
 
             // update the key and parent for all the adj node of current node
+            // If Priority Queue is used then finding key will take log(n)
             for(Pair p: g.adj[u]){
                 if(!mst[p.key] && p.val < key[p.key]){
                     key[p.key] = p.val;
@@ -76,3 +66,11 @@ public class Main {
         }
     }
 }
+
+/*
+ * 
+ * MST in UDG using Prim's Algorithm
+ * Time Complexity: O(E + VlogV)
+ * Space Complexity: O(E + V)
+ * 
+ */
