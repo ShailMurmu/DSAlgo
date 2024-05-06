@@ -14,6 +14,6 @@ class GenerateAllCombinations {
     }
 
     public static void main(String[] args) {
-        printCombinations("abcd");
+        printCombinations("abc");
     }
 }
